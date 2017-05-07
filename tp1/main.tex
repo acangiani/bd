@@ -1,0 +1,34 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[paper=a4paper, left=1.5cm, right=1.5cm, bottom=1.5cm, top=1.5cm]{geometry}
+%
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{listings}
+\usepackage{ulem}
+
+\lstset{
+    breaklines=true
+}
+
+\usepackage{caratula/caratula}
+
+\begin{document}
+
+\input{caratula.tex}
+%Carátula
+\maketitle
+\newpage
+
+%Indice
+\tableofcontents
+\newpage
+
+% Demás secciones
+
+\input{introduccion.tex}
+\input{mer.tex}
+\input{mr.tex}
+\input{consultas.tex}
+\input{conclusiones.tex}
+
+\end{document}

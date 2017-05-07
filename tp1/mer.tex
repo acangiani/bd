@@ -1,0 +1,25 @@
+\newpage
+\section{Modelo de Entidad Relación}
+
+
+% Insertar imagen
+
+\subsection{Restricciones Adicionales}
+\begin{enumerate}
+    \item Un participante sólo puede coachear alumnos de su misma escuela, a lo sumo 5, y no puede coachearse a sí mismo.
+    \item Un alumno sólo puede estar inscripto en una modalidad si tiene la graduación adecuada, y si aplicase, el género y el rango de edad correctos.
+    \item Los titulares y suplentes de un equipo deben pertenecer todos a la misma escuela.
+    \item Un árbitro sólo puede ser presidente, central, juez o suplente de una modalidad si su graduación es mayor o igual a la graduación de la modalidad (si esta es individual, ya que no aplica para las que son por equipo)
+    \item La cantidad de suplentes para una modalidad debe ser mayor o igual a 3.
+    \item Un árbitro no puede cumplir más de un rol por modalidad. Por ejemplo, si es presidente no puede ser central, juez o suplente.
+    \item Un alumno o equipo sólo puede ganar una modalidad si participó en ella.
+\end{enumerate}
+
+
+\subsection{Enums}
+\begin{enumerate}
+    \item Rango de edad (Juveniles o adultos)
+    \item Sexo (M o F)
+    \item Graduación (1er Dan a 6to Dan)
+    \item Puesto (Primero, segundo o tercero)
+\end{enumerate}

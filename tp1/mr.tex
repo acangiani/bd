@@ -1,0 +1,213 @@
+\newpage
+\def\doubleunderline#1{\underline{\underline{#1}}}
+
+\section{Modelo Relacional}
+
+Basándonos en lo desarrollado del Modelo  obtenemos el siguiente Modelo Relacional determinamos que hay que crear las siguientes relaciones:
+
+\begin{itemize}
+    \item Maestro
+    \item Escuela
+    \item Participante
+    \item Alumno
+    \item Ring
+    \item Árbitro
+    \item Es\_juez
+    \item Es\_suplente
+    \item Modalidad
+    \item ModalidadIndividual
+    \item Combate
+    \item Formas
+    \item Salto
+    \item Equipo
+    \item Ganó equipos
+    \item Participa
+    \item Ganó
+\end{itemize}
+
+de Entidad Relación
+
+\subsection{Esquema resultante}
+
+% modelo de estilo
+% \textbf{Entidad}($\doubleunderline{Atributo PK1}$, \dashuline{Atributo FK}, atributo)\par
+% PK = CK = FK = \{$\doubleunderline{Atributo PK1, Atributo PK2}$\}\par
+% \textbf{\textit{Restricciones adicionales:}} \par
+% \begin{enumerate}
+%     \item 
+% \end{enumerate}\\
+
+\noindent
+\textbf{Maestro}(\underline{Nro placa}, nombre, graduación, país)\\
+PK = CK = \{\underline{Nro placa}\}\\\\
+\textbf{\textit{Restricciones adicionales:}}\\
+\begin{itemize}
+    \item Maestro.Nro placa debe estar en Escuela.Nro\_placa.
+\end{itemize}
+
+\noindent
+\textbf{Escuela}(\underline{idEscuela}), Nombre, \dashuline{Nro placa})\\
+PK = CK = \{\underline{idEscuela}\}\\
+FK = \{Nro placa\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Escuela.Nro placa debe estar en Escuela.Nro\_placa.
+    \item Escuela.idEscuela puede no estar en Participante.idEscuela.
+\end{itemize}
+
+\noindent
+\textbf{Participante}(\underline{Nro cert grad}), \dashuline{idEscuela}, nombre, foto, graduación)\\
+PK = CK = \{Nro cert grad\}\\
+FK = \{idEscuela\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Participante.idEscuela debe estar en Escuela.idEscuela.
+    \item Participante.Nro\_cert\_grad puede no estar en Alumno.Nro\_cert\_grad.
+    \item Participante.Nro\_cert\_grad puede no estar en Alumno.coach.
+\end{itemize}\\
+
+\noindent
+\textbf{Alumno}($\doubleunderline{Nro\ cert\ grad}$, fecha de nacimiento, dni, sexo, peso,  \dashuline{coach})\\
+PK = \{Nro cert grad\}\\
+CK = \{Nro cert grad, dni\}\\
+FK = \{Nro cert grad, coach\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Alumno.Nro\_cert\_grad debe estar en Participante.Nro\_cert\_grad.
+    \item Alumno.coach debe pertenecer a Participante.Nro\_cert\_grad.
+    \item Alumno.Nro\_cert\_grad puede no estar en Equipo.titular1, ... Equipo.titular5.
+    \item Alumno.Nro\_cert\_grad puede no estar en Equipo.suplente1, ... Equipo.suplente3.
+\end{itemize}\\
+
+\noindent
+\textbf{Ring}(\underline{idRing})\\
+PK = CK = \{idRing\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Ring.idRing debe estar en Modalidad.idRing.
+\end{itemize}\\
+
+\noindent
+\textbf{Árbitro}(\underline{Nro Placa}, nombre país, graduación)\\
+PK = CK = \{Nro Placa\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Arbitro.nro\_placa puede no estar en Modalidad.nro\_placa\_presidente.
+    \item Arbitro.nro\_placa puede no estar en Modalidad.nro\_placa\_central.
+    \item Arbitro.nro\_placa puede no estar en Es\_juez.nro\_placa.
+    \item Arbitro.nro\_placa puede no estar en Es\_suplente.nro\_placa.
+\end{itemize}\\
+
+\noindent
+\textbf{Es\_juez}(\doubleunderline{Nro\ placa}, \doubleunderline{idModalidad})\\
+PK = CK = \{(Nro Placa, idModalidad)\}\\
+FK = \{Nro Placa, idModalidad\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Es\_juez.idModalidad debe estar en Modalidad.idModalidad.
+    \item Es\_juez.nro\_placa debe estar en Arbitro.nro\_placa.
+\end{itemize}\\
+
+\noindent
+\textbf{Es\_suplente}(\doubleunderline{Nro\ placa}, \doubleunderline{idModalidad})\\
+PK = CK = \{(Nro Placa, idModalidad)\}\\
+FK = \{Nro Placa, idModalidad\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Es\_suplente.idModalidad debe estar en Modalidad.idModalidad.
+    \item Es\_suplente.nro\_placa debe estar en Arbitro.nro\_placa.
+\end{itemize}\\
+
+\noindent
+\textbf{Modalidad}(\underline{idModalidad}, sexo, \dashuline{Nro placa presidente}, \dashuline{Nro placa central}, \dashuline{idRing}, individual)\\
+PK = CK = \{idModalidad\}\\
+FK = \{Nro placa presidente, Nro placa central, idRing\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Modalidad.idRing debe estar en Ring.idRing.
+    \item Modalidad.nro\_placa\_presidente debe estar en Arbitro.nro\_placa.
+    \item Modalidad.nro\_placa\_central debe estar en Arbitro.nro\_placa.
+    \item Si hay un participante entonces Modalidad.idModalidad debe estar en ModalidadIndividual.idModalidad.
+    \item Modalidad.idModalidad puede no estar en Gano\_equipos.idModalidad.
+\end{itemize}\\
+
+\noindent
+\textbf{ModalidadIndividual}(\doubleunderline{idModalidad}, graduación, tipo)\\
+PK = CK = FK = \{idModalidad\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item ModalidadIndividual.idModalidad debe estar el Modalidad.idModalidad.
+    \item ModalidadIndividual.idModalidad debe estar en Combate.idModadalidad, Formas.idModalidad o Salto.idModalidad si tipo no es Rotura\_de\_potencia, de forma excluyente.
+    \item ModalidadIndividual.idModalidad debe estar en Participa.idModalidad.
+    \item ModalidadIndividual.idModalidad puede no estar en Geno.idModalidad.
+\end{itemize}\\
+
+\noindent
+\textbf{Combate}(\doubleunderline{idModalidad}, peso, rango de edad)\\
+PK = CK = FK = \{idModalidad\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Combate.idModalidad debe estar en ModalidadIndividual.idModalidad.
+\end{itemize}\\
+
+\noindent
+\textbf{Formas}(\doubleunderline{idModalidad}, rango de edad)\\
+PK = CK = FK = \{idModalidad\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Formas.idModalidad debe estar en ModalidadIndividual.idModalidad.
+\end{itemize}\\
+
+\noindent
+\textbf{Salto}(\doubleunderline{idModalidad}, rango de edad)\\
+PK = CK = FK = \{idModalidad\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Salto.idModalidad debe estar en ModalidadIndividual.idModalidad.
+\end{itemize}\\
+
+\noindent
+\textbf{Equipo}(\underline{idEquipo}, nombre, \dashuline{titular1}, ... \dashuline{titular5}, \dashuline{suplente1}, ... \dashuline{suplente3}, \dashuline{idModalidad})\\
+PK = CK = \{idEquipo\}\\
+FK = \{titular1, ... titular5, suplente1, ... suplente3, idModalidad\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Equipo.idModalidad debe estar en Modadalidad.idModalidad y la modalidad referida debe tener el atributo individual en false.
+    \item Equipo.idEquipo puede no estar en Gano\_equipos.idEquipo.
+    \item Equipo.titular1, ... Equipo.titular5 deben estar en Alumno.Nro\_cert\_grad.
+    \item Equipo.suplente1, ... Equipo.suplente3 deben estar en Alumno.Nro\_cert\_grad.
+\end{itemize}\\
+
+\noindent
+\textbf{Ganó equipos}(\doubleunderline{idModalidad}, \doubleunderline{idEquipo}, \underline{Puesto})\\
+PK = CK = \{(idModalidad, idEquipo, Puesto)\}\\
+FK = \{idModalidad, idEquipo\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Gano\_equipos.idModalidad debe estar en Modalidad.idModalidad.
+    \item Gano\_equipos.idEquipo debe estar en Equipo.idEquipo.
+\end{itemize}\\
+
+\noindent
+\textbf{Participa}(\doubleunderline{Nro\_cert\_grad}, \doubleunderline{idModalidad})\\
+PK = CK = \{(idModalidad, Nro\_ cert\_ grad)\}\\
+FK =\{idModalidad, Nro cert grad\}\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Participa.idModalidad debe estar en ModalidadIndividual.idModalidad.
+    \item Participa.Nro\_cert\_grad debe estar en Alumno.Nro\_cert\_grad.
+\end{itemize}\\
+
+\noindent
+\textbf{Ganó}(\doubleunderline{idModalidad}, \doubleunderline{Nro\_cert\_grad}, \underline{Puesto})\\
+PK = CK = \{(idModalidad, Nro\_cert\_grad, Puesto)\}\\
+FK = \{idModalidad, Nro\_cert\_grad\}\\\\
+\textbf{\textit{Restricciones adicionales:}}
+\begin{itemize}
+    \item Gano.idModalidad debe estar en ModalidadIndividual.idModalidad.
+    \item Gano.Nro\_cert\_grad debe estar en Alumno.Nro\_cert\_grad.
+\end{itemize}\\
+
+\newpage
+% Cambiar por un mejor título
+\subsection{Supuestos asumidos}
